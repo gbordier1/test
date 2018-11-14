@@ -1,19 +1,21 @@
-def DEV_BRANCH_PATTERN = /^(develop|feature).*/
-def RELEASE_BRANCH = 'master'
+pipeline {
+    agent any
 
-node("oinis"){
-	try {
-		stage ("Checkout scm"){
-			cleanWs()
-			checkout scm
-		}
-		stage ("Package"){
-			echo "Create tar.gz"
-			tar -zcvf test.tar.gz package2/*
-		}
-	}
-	catch (Exception ex){
-		emailext attachLog: true, subject: "Job '${JOB_NAME}' ($(BUILD_NUMBER)) is in " + currentBuild.result + " status"
-		throw ex
-	}
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
 }
