@@ -2,14 +2,16 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Checkout scm') {
             steps {
-                echo 'Building..'
+                echo 'Checkout..'
+		cleanWs()
+		checkout scm
             }
         }
-        stage('Test') {
+        stage('Package') {
             steps {
-                echo 'Testing..'
+                echo 'Package..'
             }
         }
         stage('Deploy') {
@@ -19,3 +21,4 @@ pipeline {
         }
     }
 }
+
